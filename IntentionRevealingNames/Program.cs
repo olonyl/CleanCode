@@ -9,7 +9,7 @@ namespace IntentionRevealingNames
     {
         static void Main(string[] args)
         {
-            var GameBoard = new List<Cell>
+            var GameBoard = new List<Cell >
             {
                 new Cell{1,2,3,4,5},
                 new Cell{4,4,13,34,45},
