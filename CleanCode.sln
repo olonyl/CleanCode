@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntentionRevealingNames", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaingfulContext", "MaingfulContext\MaingfulContext.csproj", "{BBEB8149-1938-4A42-839C-E605F66435A8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Functions", "Functions\Functions.csproj", "{2FE1C774-F443-4CAE-8DFB-936B27576078}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{BBEB8149-1938-4A42-839C-E605F66435A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBEB8149-1938-4A42-839C-E605F66435A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBEB8149-1938-4A42-839C-E605F66435A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FE1C774-F443-4CAE-8DFB-936B27576078}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FE1C774-F443-4CAE-8DFB-936B27576078}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FE1C774-F443-4CAE-8DFB-936B27576078}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FE1C774-F443-4CAE-8DFB-936B27576078}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
