@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Functions.Listing3._7.Interfaces
+namespace Formatting.Entities
 {
-    public interface IWikiPage
+    public class FitNesseContext
     {
-        PageCrawler GetPageCrawler();
-        PageData GetData();
+        public WikiPage Root { get; set; }
     }
 }

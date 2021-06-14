@@ -1,15 +1,15 @@
-﻿using Functions.Entities;
+﻿using Formatting.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Functions.Utilities
+namespace Formatting.Entities
 {
-    public class PathParser
+    public class Request
     {
-        public static string Render(WikiPagePath pagePath)
+        public string GetResource()
         {
             return String.Empty;
         }

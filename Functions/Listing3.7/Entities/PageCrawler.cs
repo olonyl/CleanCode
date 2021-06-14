@@ -12,5 +12,15 @@ namespace Functions.Listing3._7.Entities
         {
             return new WikiPagePath();
         }
+
+        public void SetDeadEndStrategy(VirtualEnabledPageCrawler crawler)
+        {
+
+        }
+
+        public WikiPage GetPage(WikiPage page, WikiPagePath path)
+        {
+            return new WikiPage();
+        }
     }
 }

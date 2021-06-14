@@ -13,5 +13,10 @@ namespace Functions.Listing3._7.Utilities
         {
             return String.Empty;
         }
+
+        public static WikiPagePath Parse(string resourceName)
+        {
+            return new WikiPagePath();
+        }
     }
 }
