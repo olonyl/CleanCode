@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Comments", "Comments\Commen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formatting", "Formatting\Formatting.csproj", "{5E016FBC-447C-4F13-8B0D-A4893E6EE286}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassesShouldBeSmall", "ClassesShouldBeSmall\ClassesShouldBeSmall.csproj", "{AE1229BC-5277-4978-ADB3-E0B7CD6F6A0A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{5E016FBC-447C-4F13-8B0D-A4893E6EE286}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E016FBC-447C-4F13-8B0D-A4893E6EE286}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E016FBC-447C-4F13-8B0D-A4893E6EE286}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE1229BC-5277-4978-ADB3-E0B7CD6F6A0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE1229BC-5277-4978-ADB3-E0B7CD6F6A0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE1229BC-5277-4978-ADB3-E0B7CD6F6A0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE1229BC-5277-4978-ADB3-E0B7CD6F6A0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
