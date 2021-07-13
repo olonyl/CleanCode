@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ArgsImplementation
 {
-    public class ArgumentMarshaler
+    public interface IArgumentMarshaler
     {
+        void Set(List<String> currentArgument);
     }
 }
