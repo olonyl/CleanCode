@@ -8,25 +8,29 @@ namespace ArgsImplementation
 {
     public class Args
     {
+        private string schema;
         private Dictionary<char, IArgumentMarshaler> marshalers;
         private List<char> argsFound;
         private List<string> currentArgument;
-        private const string INVALID_ARGUMENT_FORMAT = "This is an ivalid argument error";
-        private const string INVALID_ARGUMENT_NAME = "This is an invalid argument name";
-        private const string UNEXPECTED_ARGUMENT = "This is an unexpected argument";
+        private List<string> argsList;
         public Args(string schema, string[] args)
         {
-            marshalers = new Dictionary<char, IArgumentMarshaler>();
-            argsFound = new List<char>();
-            ParseSchema(schema);
-            ParseArgumentString(args.ToList());
+            this.schema = schema;
+            argsList = args.ToList();
+            Parse();
         }
 
-        private void ParseSchema(string schema)
+        private void Parse()
+        {
+            ParseSchema();
+            ParseArguments();
+        }
+        private bool ParseSchema()
         {
             foreach(string element in schema.Split(","))
                 if (element.Length > 0)
                     ParseSchemaElement(element.Trim());
+            return true;
         }
         private void ParseSchemaElement(string element)
         {
@@ -44,15 +48,114 @@ namespace ArgsImplementation
             else if (elementTail.Equals("[*]"))
                 marshalers.Add(elementId, new StringArrayArgumentMarshaler());
             else
-                throw new ArgsException(ErrorCode.INVALID_ARGUMENT_FORMAT, elementId, elementTail);
+                throw new ArgsException(ArgsException.ErrorCode.INVALID_ARGUMENT_FORMAT, elementId, elementTail);
         }
 
         private void ValidateSchemaElementId(char elementId)
         {
-            if (Char.IsLetter(elementId))
-                throw new ArgsException(ErrorCode.INVALID_ARGUMENT_NAME, elementId, null);
+            if (!Char.IsLetter(elementId))
+                throw new ArgsException(ArgsException.ErrorCode.INVALID_ARGUMENT_NAME, elementId, null);
+        }
+        private void ParseArguments()
+        {
+            foreach (var arg in argsList)
+                ParseArgument(arg);
+        }
+        private void ParseArgument(string arg)
+        {
+            if (arg.StartsWith("-"))
+                ParseSchemaElement(arg);
+        }
+        private void ParseElement(char argChar)
+        {
+            if (SetArgument(argChar))
+                argsFound.Add(argChar);
+            else
+                throw new ArgsException(ArgsException.ErrorCode.UNEXPECTED_ARGUMENT, argChar, null);
+        }
+        private bool SetArgument(char argChar)
+        {
+            IArgumentMarshaler m = marshalers.Where(w=> w.Key == argChar).FirstOrDefault().Value;
+            if (m == null)
+                return false;
+            try
+            {
+                m.Set(currentArgument);
+                return true;
+            }
+            catch(ArgsException e)
+            {
+                e.SetErrorArgumentId(argChar);
+                throw e;
+            }
+        }
+        public int Cardinality()
+        {
+            return argsFound.Count;
+        }
+        public string Usage()
+        {
+            if (schema.Length > 0)
+                return $"-[{schema}]";
+            else
+                return String.Empty;
+        }
+        public bool GetBoolean(char arg) 
+        {
+            IArgumentMarshaler am = marshalers.Where(w => w.Key == arg).FirstOrDefault().Value;
+            bool b = false;
+            try
+            {
+                b = am != null && ((BooleanArgumentMarshaler)am).Get();
+            }
+            catch(Exception e)
+            {
+                b = false;
+            }
+            return b;
+        }
+        public string GetString(char arg)
+        {
+            IArgumentMarshaler am = marshalers.Where(w => w.Key == arg).FirstOrDefault().Value;
+            try
+            {
+                return am == null? String.Empty : ((StringArgumentMarshaler)am).Get();
+            }
+            catch (Exception e)
+            {
+                return String.Empty;
+            }
         }
 
+        public int GetInt(char arg)
+        {
+            IArgumentMarshaler am = marshalers.Where(w => w.Key == arg).FirstOrDefault().Value;
+            try
+            {
+                return am == null ? 0 : ((IntegerArgumentMarshaler)am).Get();
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+        }
+        public double GetDouble(char arg)
+        {
+            IArgumentMarshaler am = marshalers.Where(w => w.Key == arg).FirstOrDefault().Value;
+            try
+            {
+                return am == null ? 0 : ((DoubleArgumentMarshaler)am).Get();
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+        }
+
+        public bool Has(char arg)
+        {
+            return argsFound.Contains(arg);
+        }
         private void ParseArgumentString(List<string> argsList)
         {
             foreach(var item in argsList)
@@ -75,7 +178,7 @@ namespace ArgsImplementation
         {
             IArgumentMarshaler m = marshalers.Where(w=> w.Key == argChar).FirstOrDefault().Value;
             if (m == null)
-                throw new ArgsException(ErrorCode.UNEXPECTED_ARGUMENT, argChar, null);
+                throw new ArgsException(ArgsException.ErrorCode.UNEXPECTED_ARGUMENT, argChar, null);
             else
                 argsFound.Add(argChar);
             try
@@ -89,19 +192,10 @@ namespace ArgsImplementation
             }
         }
 
-        public bool Has(char arg)
-        {
-            return argsFound.Contains(arg);
-        }
-
-        public int NextArgument()
+           public int NextArgument()
         {
             return currentArgument.Count;
         }
 
-        public bool GetBoolean(char arg)
-        {
-            return BooleanArgumentMarshaler.GetValue(marshalers.Where(w => w.Key == arg).FirstOrDefault().Value);
-        }
     }
 }

@@ -21,19 +21,16 @@ namespace ArgsImplementation
             }
             catch (NoSuchElementException e)
             {
-                throw new ArgsException(ErrorCode.MISSING_DOUBLE);
+                throw new ArgsException(ArgsException.ErrorCode.MISSING_DOUBLE);
             }
             catch (NumberFormatException e)
             {
-                throw new ArgsException(ErrorCode.INVALID_DOUBLE, parameter);
+                throw new ArgsException(ArgsException.ErrorCode.INVALID_DOUBLE, parameter);
             }
         }
-        public static double GetValue(IArgumentMarshaler am)
+        public double Get()
         {
-            if (am != null && am.GetType() == typeof(DoubleArgumentMarshaler))
-                return ((DoubleArgumentMarshaler)am).doubleValue;
-            else
-                return 0;
+            return doubleValue;
         }
     }
 }

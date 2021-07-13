@@ -17,15 +17,12 @@ namespace ArgsImplementation
             }
             catch (Exception)
             {
-                throw new ArgsException(ErrorCode.MISSING_STRING);
+                throw new ArgsException(ArgsException.ErrorCode.MISSING_STRING);
             }
         }
-        public static String GetValue(IArgumentMarshaler am)
+        public String Get()
         {
-            if (am != null && am.GetType() == typeof(StringArgumentMarshaler))
-                 return ((StringArgumentMarshaler)am).stringValue;
-            else
-                return String.Empty;
+            return stringValue;
         }
     }
 }

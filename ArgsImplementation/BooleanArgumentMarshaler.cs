@@ -13,12 +13,9 @@ namespace ArgsImplementation
         {
             booleanValue = true;
         }
-        public static bool GetValue(IArgumentMarshaler am)
+        public  bool Get()
         {
-            if (am != null && am.GetType() == typeof(BooleanArgumentMarshaler))
-                return ((BooleanArgumentMarshaler)am).booleanValue;
-            else
-                return false;
+            return booleanValue;
         }
     }
 }
